@@ -1,5 +1,5 @@
 ---
-name: project-health-checker
+name: claude-code-project-diagnostics
 description: This skill should be used when the user asks to "检查配置", "检查项目", "健康检查", "诊断问题", "分析 .claude 配置", "审查 CLAUDE.md", "检查 skill", "检查 hook", "配置有什么问题", or when they want to audit, diagnose, or improve their Claude Code project setup. Also trigger when the user mentions validating .claude/, settings.json, CLAUDE.md, hooks, commands, skills, or MCP configuration.
 ---
 

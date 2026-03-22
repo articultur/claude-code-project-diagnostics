@@ -1,0 +1,54 @@
+# Project Name
+
+Brief description of the project (1-2 sentences).
+
+## 项目结构
+
+```
+.
+├── src/           # Source code
+├── tests/         # Test files
+├── docs/          # Documentation
+└── README.md      # Project readme
+```
+
+## 开发命令
+
+| 命令 | 说明 |
+|------|------|
+| `<install-cmd>` | 安装依赖 (e.g., `npm install`, `pip install -r requirements.txt`) |
+| `<dev-cmd>`     | 启动开发服务器 (e.g., `npm run dev`, `python manage.py runserver`) |
+| `<test-cmd>`    | 运行测试 (e.g., `npm test`, `pytest`) |
+| `<build-cmd>`   | 构建生产版本 (e.g., `npm run build`, `make`) |
+
+## 开发流程
+
+1. **安装依赖**: 运行 `<install-cmd>`
+2. **启动开发**: 运行 `<dev-cmd>`
+3. **编写代码**: 在 `src/` 目录下修改
+4. **运行测试**: 运行 `<test-cmd>` 确保所有测试通过
+5. **构建部署**: 运行 `<build-cmd>` 生成生产版本
+
+## 关键约定
+
+- **代码风格**: 使用 [ESLint/Prettier/Black] 进行格式化
+- **提交规范**: 遵循 [Conventional Commits](https://www.conventionalcommits.org/)
+- **分支策略**: main 分支保护，通过 PR 合并
+- **测试覆盖**: 新功能需附带测试
+
+## 禁忌
+
+- ❌ 不要将敏感信息（API 密钥、密码）硬编码或提交到仓库
+- ❌ 不要在 main 分支直接推送代码
+- ❌ 不要提交未通过测试的代码
+- ❌ 不要忽略 TypeScript/Lint 错误
+
+## 重要规则
+
+<important if="user asks about project structure">
+项目结构遵循标准布局：src/ 存放源码，tests/ 存放测试，docs/ 存放文档
+</important>
+
+<important if="user asks how to run the project">
+运行流程：安装依赖 → 启动开发服务器 → 访问本地地址
+</important>

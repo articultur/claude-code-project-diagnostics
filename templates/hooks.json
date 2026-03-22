@@ -1,0 +1,27 @@
+{
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": {
+          "tool": "Bash",
+          "command": "npm run format"
+        },
+        "description": "Auto-format after running formatter"
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": {
+          "tool": "Bash",
+          "command": "git push"
+        },
+        "description": "Confirm before pushing to remote"
+      }
+    ],
+    "Stop": [
+      {
+        "description": "Validate before completing session"
+      }
+    ]
+  }
+}

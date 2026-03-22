@@ -1,0 +1,258 @@
+{
+  "skill_name": "project-health-checker",
+  "evals": [
+    {
+      "id": 1,
+      "name": "basic-health-check-zh",
+      "prompt": "检查当前项目的配置",
+      "expected_output": "扫描 .claude/ 目录、settings.json、CLAUDE.md 等配置文件，输出健康报告，包含配置覆盖率、高优先级问题、中优先级建议、良好实践和修复优先级",
+      "files": [".claude/settings.json", "CLAUDE.md"],
+      "should_trigger": true,
+      "assertions": [
+        "Reports config coverage status",
+        "Categorizes issues by severity (high/medium/low)",
+        "Provides specific fix recommendations"
+      ]
+    },
+    {
+      "id": 2,
+      "name": "config-problem-question-zh",
+      "prompt": "帮我看看这个 Claude Code 项目有什么配置问题",
+      "expected_output": "运行健康检查，识别配置问题，如缺失的文件、不当的权限设置、过长的 CLAUDE.md 等，并提供具体修复建议",
+      "files": [".claude/settings.json", ".claude/hooks.json", "CLAUDE.md"],
+      "should_trigger": true,
+      "assertions": [
+        "Identifies missing config files",
+        "Checks permissions patterns",
+        "Suggests concrete fixes"
+      ]
+    },
+    {
+      "id": 3,
+      "name": "claude-md-review-zh",
+      "prompt": "检查我的 CLAUDE.md 是否符合最佳实践",
+      "expected_output": "检查 CLAUDE.md 的行数、是否包含 build/test/run 命令、是否使用 <important> 标签、是否需要拆分到 .claude/rules/",
+      "files": ["CLAUDE.md"],
+      "should_trigger": true,
+      "assertions": [
+        "Checks line count (<200 threshold)",
+        "Verifies essential commands exist",
+        "Flags missing <important> tags"
+      ]
+    },
+    {
+      "id": 4,
+      "name": "dot-claude-audit-zh",
+      "prompt": "分析 .claude 配置",
+      "expected_output": "检查 settings.json 的 permissions 配置（通配符 vs 硬编码）、features 配置、model 配置，以及 hooks、commands、skills、agents 目录结构",
+      "files": [".claude/settings.json", ".claude/hooks.json", ".claude/commands"],
+      "should_trigger": true,
+      "assertions": [
+        "Analyzes permissions patterns",
+        "Checks model/output settings",
+        "Verifies directory structure"
+      ]
+    },
+    {
+      "id": 5,
+      "name": "skill-self-check-zh",
+      "prompt": "这个 skill 有什么问题？",
+      "expected_output": "如果当前目录是 skill，检查 SKILL.md 是否有正确的 frontmatter、description 是否为触发器格式、是否有 references/ 目录、是否遵循渐进披露原则",
+      "files": ["SKILL.md", "references/best-practices.md"],
+      "should_trigger": true,
+      "assertions": [
+        "Validates SKILL.md frontmatter",
+        "Checks description quality",
+        "Verifies progressive disclosure"
+      ]
+    },
+    {
+      "id": 6,
+      "name": "run-script-directly",
+      "prompt": "运行自动化检查脚本",
+      "expected_output": "执行 scripts/health-check.sh 脚本，输出检查结果摘要，包括错误和警告统计",
+      "files": ["scripts/health-check.sh"],
+      "should_trigger": true,
+      "assertions": [
+        "Executes the health-check script",
+        "Parses script output correctly",
+        "Summarizes errors and warnings"
+      ]
+    },
+    {
+      "id": 7,
+      "name": "hook-configuration-check-zh",
+      "prompt": "检查 hook 配置",
+      "expected_output": "检查 .claude/hooks.json 或 .claude/hooks/ 目录，验证 PostToolUse、PreToolUse、Stop hooks 是否配置",
+      "files": [".claude/hooks.json"],
+      "should_trigger": true,
+      "assertions": [
+        "Checks for PostToolUse hook",
+        "Checks for PreToolUse hook",
+        "Checks for Stop hook"
+      ]
+    },
+    {
+      "id": 8,
+      "name": "settings-local-check-zh",
+      "prompt": "分析 settings.local.json 配置是否合理",
+      "expected_output": "检查 settings.local.json 的权限配置、model 设置，提示敏感信息不应提交到 git",
+      "files": [".claude/settings.local.json"],
+      "should_trigger": true,
+      "assertions": [
+        "Validates JSON syntax",
+        "Checks permissions patterns",
+        "Warns about sensitive data"
+      ]
+    },
+    {
+      "id": 9,
+      "name": "mcp-config-check-zh",
+      "prompt": "检查 .mcp.json 配置",
+      "expected_output": "验证 .mcp.json 格式是否正确、mcpServers 是否可连接、是否包含不必要的 MCP 服务器",
+      "files": [".mcp.json"],
+      "should_trigger": true,
+      "assertions": [
+        "Validates JSON format",
+        "Checks mcpServers configuration",
+        "Identifies unnecessary servers"
+      ]
+    },
+    {
+      "id": 10,
+      "name": "commands-directory-check-zh",
+      "prompt": "检查 commands 目录配置",
+      "expected_output": "检查 .claude/commands/ 目录中的 command 文件，验证命名是否清晰、是否适合用 command 而非 subagent",
+      "files": [".claude/commands/"],
+      "should_trigger": true,
+      "assertions": [
+        "Lists available commands",
+        "Checks naming conventions",
+        "Suggests command vs subagent usage"
+      ]
+    },
+    {
+      "id": 11,
+      "name": "bug-report-code-zh",
+      "prompt": "这个项目有什么 bug？",
+      "expected_output": "这是一个不触发 health-checker skill 的请求，因为询问的是代码 bug 而非配置问题。模型应询问用户是否需要检查代码问题或配置问题。",
+      "files": [],
+      "should_trigger": false,
+      "notes": "This should NOT trigger the skill - asking about code bugs, not config issues"
+    },
+    {
+      "id": 12,
+      "name": "feature-request-zh",
+      "prompt": "帮我加一个新功能",
+      "expected_output": "不触发 health-checker，这是功能开发请求而非配置检查请求",
+      "files": [],
+      "should_trigger": false,
+      "notes": "Feature request, not config audit"
+    },
+    {
+      "id": 13,
+      "name": "refactor-code-zh",
+      "prompt": "重构这段代码",
+      "expected_output": "不触发 health-checker，这是代码重构请求",
+      "files": ["src/main.py"],
+      "should_trigger": false,
+      "notes": "Code refactoring, not config related"
+    },
+    {
+      "id": 14,
+      "name": "deployment-question-zh",
+      "prompt": "怎么部署到生产环境？",
+      "expected_output": "不触发 health-checker，这是部署问题而非配置检查",
+      "files": [],
+      "should_trigger": false,
+      "notes": "Deployment question, not config audit"
+    },
+    {
+      "id": 15,
+      "name": "ui-design-question-zh",
+      "prompt": "这个按钮怎么设计好看？",
+      "expected_output": "不触发 health-checker，这是 UI 设计问题",
+      "files": [],
+      "should_trigger": false,
+      "notes": "UI design, completely unrelated"
+    },
+    {
+      "id": 16,
+      "name": "test-failure-question-zh",
+      "prompt": "测试怎么挂了？",
+      "expected_output": "不触发 health-checker，这是测试调试问题（虽然可能与配置间接相关，但用户明确问的是测试失败）",
+      "files": [],
+      "should_trigger": false,
+      "notes": "Test failure debugging, not config audit"
+    },
+    {
+      "id": 17,
+      "name": "dependencies-question-zh",
+      "prompt": "怎么安装依赖？",
+      "expected_output": "不触发 health-checker，这是依赖安装问题",
+      "files": [],
+      "should_trigger": false,
+      "notes": "Dependency installation, not config audit"
+    },
+    {
+      "id": 18,
+      "name": "git-issue-zh",
+      "prompt": "git 冲突怎么解决？",
+      "expected_output": "不触发 health-checker，这是 git 操作问题",
+      "files": [],
+      "should_trigger": false,
+      "notes": "Git operations, not Claude Code config"
+    },
+    {
+      "id": 19,
+      "name": "health-check-en",
+      "prompt": "Check the health of my Claude Code project configuration",
+      "expected_output": "Should trigger the skill and perform a comprehensive health check in English",
+      "files": [".claude/settings.json", "CLAUDE.md"],
+      "should_trigger": true,
+      "assertions": [
+        "Performs config audit",
+        "Reports findings in English context"
+      ]
+    },
+    {
+      "id": 20,
+      "name": "audit-settings-en",
+      "prompt": "Audit my .claude/settings.json for security issues",
+      "expected_output": "Should trigger and focus on security-relevant config like permissions",
+      "files": [".claude/settings.json"],
+      "should_trigger": true,
+      "assertions": [
+        "Analyzes permissions for security",
+        "Flags overly broad wildcards"
+      ]
+    }
+  ],
+  "fixtures": {
+    "healthy_project": {
+      "description": "A well-configured project following best practices",
+      "files": {
+        ".claude/settings.json": {
+          "model": "claude-opus",
+          "permissions": {"allow": ["Bash(npm *)", "Bash(git *)", "Bash(python3 *)"]},
+          "features": {"thinking": true, "outputStyles": ["explanatory"]},
+          "output": {"style": "explanatory"}
+        },
+        "CLAUDE.md": "# Project\n\n## Structure\n...\n\n## Commands\n- Build: `npm run build`\n- Test: `npm test`\n- Run: `npm start`\n\n<important if=\"user asks about build\">Use npm run build</important>\n"
+      }
+    },
+    "problematic_project": {
+      "description": "Project with multiple configuration issues",
+      "files": {
+        ".claude/settings.json": {
+          "permissions": {"allow": ["Bash(npm install:*)", "Bash(git clone:*)", "Bash(*)"]}
+        },
+        "CLAUDE.md": "Line 1\n[This file has 350+ lines of padding content...]"
+      }
+    },
+    "minimal_project": {
+      "description": "Project with minimal/no configuration",
+      "files": {}
+    }
+  }
+}
